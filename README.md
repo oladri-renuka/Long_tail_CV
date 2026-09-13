@@ -2,6 +2,8 @@
 
 Deep learning system for skin lesion diagnosis with uncertainty quantification and human expert review integration.
 
+**[🚀 Live Demo](https://longtailcv-rcbx6xf8dyjngrpxhbezw7.streamlit.app)** — Try the app now on Streamlit Cloud
+
 ---
 
 ## Overview
@@ -83,16 +85,17 @@ Access at http://localhost:8501
 
 **Upload & Predict Page**
 - Upload dermoscopy image
-- Instant model inference
-- Confidence score display
-- Automatic routing decision
+- Instant model inference with 69% confidence display
+- Automatic routing decision (Red = Human Review, Green = Auto-Approved)
 - Top-5 prediction probabilities
+- Routing threshold visualization (0.85)
 
 **Review Queue Page**
-- Pending images for expert review
-- Image display alongside predictions
-- Feedback form (diagnosis + correctness)
-- Reviewed images history
+- Pending images for expert review queue
+- Full image display alongside model predictions
+- Feedback form (diagnosis + correctness assessment)
+- Queue statistics (Total Flagged, In Queue, Reviewed)
+- Reviewed images history with accuracy tracking
 
 **Metrics Dashboard**
 - Real-time accuracy metrics (head vs tail)
