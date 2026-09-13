@@ -39,9 +39,7 @@ data/ISIC_2019_Test_Input/
 data/*.zip
 *.zip
 
-# Models (too large)
-models/*.pth
-models/*.pkl
+# Models are included in repo for Streamlit Cloud deployment
 
 # Database
 app/db/review_queue.db
