@@ -84,18 +84,23 @@ Access at http://localhost:8501
 ### Application Interface
 
 **Upload & Predict Page**
-- Upload dermoscopy image
-- Instant model inference with 69% confidence display
-- Automatic routing decision (Red = Human Review, Green = Auto-Approved)
-- Top-5 prediction probabilities
-- Routing threshold visualization (0.85)
+
+Upload dermoscopy images for instant classification with confidence scores and automatic routing decisions. The system displays the top-5 predictions and visualizes whether each prediction meets the confidence threshold (0.85) for auto-approval or requires human review.
+
+![Upload & Predict Interface](docs/visuals/upload_predict_interface.png)
 
 **Review Queue Page**
-- Pending images for expert review queue
-- Full image display alongside model predictions
-- Feedback form (diagnosis + correctness assessment)
-- Queue statistics (Total Flagged, In Queue, Reviewed)
-- Reviewed images history with accuracy tracking
+
+Expert reviewers access a prioritized queue of uncertain predictions. Each flagged image displays the model's prediction, confidence score, reasoning, and a review form to provide ground truth labels and assessment feedback.
+
+![Review Queue Interface](docs/visuals/review_queue_interface.png)
+
+**Queue Management**
+- Pending images for expert review with confidence indicators
+- Full image display with model predictions side-by-side
+- Feedback form: correct label, prediction assessment, review notes
+- Queue statistics: Total Flagged, In Queue, Reviewed, Accuracy tracking
+- Review history with full timestamp and audit trail
 
 **Metrics Dashboard**
 - Real-time accuracy metrics (head vs tail)
