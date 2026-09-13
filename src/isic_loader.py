@@ -246,6 +246,9 @@ def get_isic_loaders(
                 img = self.transform(img)
             return img, label, disease
 
+        def __getitems__(self, indices):
+            return [self.__getitem__(idx) for idx in indices]
+
     train_dataset = TransformedSubset(full_dataset, train_indices.indices, train_transform)
     val_dataset = TransformedSubset(full_dataset, val_indices.indices, val_transform)
 
