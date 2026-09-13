@@ -69,3 +69,4 @@ htmlcov/
 # Temporary
 *.tmp
 *.temp
+app/
