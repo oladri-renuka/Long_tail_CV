@@ -74,7 +74,7 @@ class ISICDataset(Dataset):
         # Map image IDs to file paths
         self.image_paths = {}
         for idx, row in self.df.iterrows():
-            img_id = row['image_id']
+            img_id = row['image']  # Column is 'image' not 'image_id'
             # Try different file formats
             img_path = img_dir / f"{img_id}.jpg"
             if not img_path.exists():
@@ -85,7 +85,7 @@ class ISICDataset(Dataset):
         print(f"Found {len(self.image_paths)} images in {img_dir}")
 
         # Filter DF to only include images we found
-        self.df = self.df[self.df['image_id'].isin(self.image_paths.keys())]
+        self.df = self.df[self.df['image'].isin(self.image_paths.keys())]
 
     def analyze_distribution(self):
         """Analyze class distribution (long-tail analysis)."""
@@ -142,7 +142,7 @@ class ISICDataset(Dataset):
 
     def __getitem__(self, idx):
         row = self.filtered_df.iloc[idx]
-        img_id = row['image_id']
+        img_id = row['image']  # Column is 'image' not 'image_id'
 
         # Load image
         img_path = self.image_paths[img_id]
@@ -154,13 +154,16 @@ class ISICDataset(Dataset):
 
         # Get label (one-hot encoded in CSV, convert to class index)
         label = None
-        for disease_idx, disease in enumerate(self.DISEASE_TYPES):
-            if row[disease] == 1:
+        disease = None
+        for disease_idx, disease_name in enumerate(self.DISEASE_TYPES):
+            if row[disease_name] == 1.0:
                 label = disease_idx
+                disease = disease_name
                 break
 
         if label is None:
             label = 0  # Default to first class
+            disease = self.DISEASE_TYPES[0]
 
         if self.transform:
             image = self.transform(image)
