@@ -159,11 +159,20 @@ The model is trained exclusively on ISIC 2019 dermoscopy images. Performance may
 
 ## Deployment Requirements
 
+### Local Deployment (Recommended)
 - Python 3.13+
 - 4GB RAM minimum (8GB recommended)
 - CUDA 11.8+ for GPU acceleration
-- 500MB disk space
-- Local network access only (no internet required)
+- 500MB disk space for models
+- Full functionality with persistent image storage
+
+### Streamlit Cloud Deployment
+- GitHub repository (connected)
+- Images display during session only
+- For production use, implement cloud storage (AWS S3, etc.)
+- Review queue displays but image files don't persist between sessions
+
+**Note:** Images are saved to `app 2/uploads/` which is ephemeral on Streamlit Cloud. For persistent deployment, configure cloud storage or use local deployment.
 
 ---
 
