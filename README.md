@@ -194,6 +194,4 @@ Tschandl P, et al. The HAM10000 dataset: A large collection of multi-source derm
 
 ---
 
-**Version:** 1.0 | **Release Date:** September 13, 2026 | **Status:** Production Ready
-
-**Confidentiality Notice:** Authorized personnel only. Unauthorized access or distribution is prohibited.
+**Version:** 1.0 
