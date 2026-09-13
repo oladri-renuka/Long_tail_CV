@@ -33,11 +33,25 @@ st.set_page_config(
 )
 
 # ============================================================================
+# MODEL INITIALIZATION
+# ============================================================================
+def check_models_exist():
+    """Check if model files exist."""
+    model_dir = Path(__file__).parent.parent / "models"
+    required_files = ["best_model.pth", "temperature_model.pkl", "router.pkl"]
+    missing = [f for f in required_files if not (model_dir / f).exists()]
+    return len(missing) == 0, missing
+
+# ============================================================================
 # SESSION STATE
 # ============================================================================
 @st.cache_resource
 def load_model_and_calibration(model_path: str, calibration_path: str, device: str = "cpu"):
     """Load model and calibration."""
+    # Check files exist
+    if not Path(model_path).exists() or not Path(calibration_path).exists():
+        raise FileNotFoundError(f"Model files not found at {model_path} or {calibration_path}")
+
     # Model
     model = ImageClassifier(num_classes=8)  # ISIC has 8 disease classes
     model.load_state_dict(torch.load(model_path, map_location=device))
@@ -123,15 +137,19 @@ if page == "Upload & Predict":
         """
     )
 
-    # Check if models are available
-    model_path = Path("models/best_model.pth")
-    calibration_path = Path("models/temperature_model.pkl")
-    router_path = Path("models/router.pkl")
+    # Check if models are available (use absolute paths)
+    model_dir = Path(__file__).parent.parent / "models"
+    model_path = model_dir / "best_model.pth"
+    calibration_path = model_dir / "temperature_model.pkl"
+    router_path = model_dir / "router.pkl"
 
     if not all([model_path.exists(), calibration_path.exists(), router_path.exists()]):
         st.error(
-            "⚠️ Models not found. Please run the training pipeline first:\n"
-            "```bash\npython scripts/train.py\npython scripts/calibrate.py\n```"
+            "⚠️ Models not found. This demo works best with local deployment.\n\n"
+            "**Local Setup:**\n"
+            "```bash\ncd app\\ 2\nstreamlit run streamlit_app.py\n```\n\n"
+            "**Note:** Git LFS model files don't work on Streamlit Cloud. "
+            "For cloud deployment, models need to be downloaded from a cloud storage service (AWS S3, etc)."
         )
     else:
         try:
